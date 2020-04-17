@@ -80,7 +80,9 @@ class HomeScreen extends StatelessWidget {
             child: Row(
               children: <Widget>[
                 SvgPicture.asset("assets/icons/maps-and-flags.svg"),
-                SizedBox(width: 20.0,),
+                SizedBox(
+                  width: 20.0,
+                ),
                 Expanded(
                   child: DropdownButton(
                     isExpanded: true,
@@ -100,16 +102,74 @@ class HomeScreen extends StatelessWidget {
               ],
             ),
           ),
-          Padding(padding: EdgeInsets.symmetric(horizontal: 20.0),
-          child: Column(
-            children: <Widget>[
-              Row(children: <Widget>[
-                RichText(text: TextSpan(children: [
-                  TextSpan(text: "Case Update" , style: kTitleTextstyle)
-                ]),)
-              ],)
-            ],
-          ),)
+          SizedBox(
+            height: 20.0,
+          ),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 20.0),
+            child: Column(
+              children: <Widget>[
+                Row(
+                  children: <Widget>[
+                    RichText(
+                      text: TextSpan(
+                        children: [
+                          TextSpan(
+                              text: "Case Update\n", style: kTitleTextstyle),
+                          TextSpan(
+                              text: "Latest Update of April 18",
+                              style: TextStyle(color: kTextLightColor))
+                        ],
+                      ),
+                    ),
+                    Spacer(),
+                    Text(
+                      "See Details",
+                      style: TextStyle(
+                          color: kPrimaryColor, fontWeight: FontWeight.w600),
+                    )
+                  ],
+                ),
+                SizedBox(
+                  height: 20.0,
+                ),
+                Container(
+                  padding: EdgeInsets.all(20.0),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20.0),
+                      color: Colors.white,
+                      boxShadow: [
+                        BoxShadow(
+                            offset: Offset(0, 4),
+                            blurRadius: 30.0,
+                            color: kShadowColor)
+                      ]),
+                      child: Row(
+                        children: <Widget>[
+                          Column(
+                            children: <Widget>[
+                              Container(
+                                padding: EdgeInsets.all(6.0),
+                                height: 25.0,
+                                width: 25.0,
+                                decoration: BoxDecoration(shape: BoxShape.circle,
+                                color: kInfectedColor.withOpacity(0.26)),
+                                child: Container(
+                                  decoration: BoxDecoration(shape: BoxShape.circle,
+                                  color: Colors.transparent,
+                                  border: Border.all(color: kInfectedColor,width: 2.0)),
+                                ),
+                              ),
+                              SizedBox(height: 10.0,),
+                              Text("1046" , style: TextStyle(fontSize: 40.0),)
+                            ],
+                          )
+                        ],
+                      ),
+                )
+              ],
+            ),
+          )
         ],
       ),
     );
