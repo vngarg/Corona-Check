@@ -1,14 +1,17 @@
 import 'package:corona_check/constant.dart';
+import 'package:corona_check/infoScreen.dart';
 import 'package:corona_check/widgets/counter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class MyHeader extends StatelessWidget {
-
-  final String image , textTop , textBottom;
+  final String image, textTop, textBottom;
 
   const MyHeader({
-    Key key, this.image, this.textTop, this.textBottom,
+    Key key,
+    this.image,
+    this.textTop,
+    this.textBottom,
   }) : super(key: key);
 
   @override
@@ -24,14 +27,20 @@ class MyHeader extends StatelessWidget {
                 begin: Alignment.topRight,
                 end: Alignment.bottomLeft,
                 colors: [Color(0xFF3383CD), Color(0xFF11249F)]),
-            image: DecorationImage(
-                image: AssetImage("assets/images/virus.png"))),
+            image:
+                DecorationImage(image: AssetImage("assets/images/virus.png"))),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Align(
                 alignment: Alignment.topRight,
-                child: SvgPicture.asset("assets/icons/menu.svg")),
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.push(context , MaterialPageRoute(builder: (context) {
+                      return InfoScreen();
+                    }) );
+                  },
+                  child: SvgPicture.asset("assets/icons/menu.svg"))),
             SizedBox(height: 20.0),
             Expanded(
               child: Stack(
@@ -46,8 +55,7 @@ class MyHeader extends StatelessWidget {
                     top: 20.0,
                     left: 150.0,
                     child: Text("$textTop \n$textBottom",
-                        style: kHeadingTextStyle.copyWith(
-                            color: Colors.white)),
+                        style: kHeadingTextStyle.copyWith(color: Colors.white)),
                   ),
                   Container(),
                 ],
@@ -59,4 +67,3 @@ class MyHeader extends StatelessWidget {
     );
   }
 }
-

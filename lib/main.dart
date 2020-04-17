@@ -1,5 +1,4 @@
 import 'package:corona_check/constant.dart';
-import 'package:corona_check/infoScreen.dart';
 import 'package:corona_check/widgets/counter.dart';
 import 'package:corona_check/widgets/myHeader.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +16,7 @@ class MyApp extends StatelessWidget {
             scaffoldBackgroundColor: kBackgroundColor,
             fontFamily: "Poppins",
             textTheme: TextTheme(body1: TextStyle(color: kBodyTextColor))),
-        home: InfoScreen());
+        home: HomeScreen());
   }
 }
 
