@@ -22,7 +22,8 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
+      body: SingleChildScrollView(
+        child: Column(
         children: <Widget>[
           ClipPath(
             clipper: MyClipper(),
@@ -144,34 +145,94 @@ class HomeScreen extends StatelessWidget {
                             blurRadius: 30.0,
                             color: kShadowColor)
                       ]),
-                      child: Row(
-                        children: <Widget>[
-                          Column(
-                            children: <Widget>[
-                              Container(
-                                padding: EdgeInsets.all(6.0),
-                                height: 25.0,
-                                width: 25.0,
-                                decoration: BoxDecoration(shape: BoxShape.circle,
-                                color: kInfectedColor.withOpacity(0.26)),
-                                child: Container(
-                                  decoration: BoxDecoration(shape: BoxShape.circle,
-                                  color: Colors.transparent,
-                                  border: Border.all(color: kInfectedColor,width: 2.0)),
-                                ),
-                              ),
-                              SizedBox(height: 10.0,),
-                              Text("1046" , style: TextStyle(fontSize: 40.0),)
-                            ],
-                          )
-                        ],
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Counter(
+                        color: kInfectedColor,
+                        number: 1046,
+                        title: "Infected",
                       ),
+                      Counter(
+                        color: kDeathColor,
+                        number: 50,
+                        title: "Deaths",
+                      ),
+                      Counter(
+                        color: kRecovercolor,
+                        number: 10,
+                        title: "Recovered",
+                      )
+                    ],
+                  ),
+                ),
+                SizedBox(height: 20.0,),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Text("Spread of Virus" , style: kTitleTextstyle,),
+                    Text("See Details" , style: TextStyle(color: kPrimaryColor , fontWeight: FontWeight.w600),)
+                  ],
+                ),
+                Container(
+                  margin: EdgeInsets.only(top: 10.0),
+                  padding: EdgeInsets.all(20.0),
+                  height: 178,
+                  width: double.infinity,
+                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(20.0) , color: Colors.white , boxShadow: [BoxShadow(offset: Offset(0 , 10 ) , blurRadius: 30.0 , color: kShadowColor)]),
+                  child: Image.asset("assets/images/map.png" , fit: BoxFit.contain,),
                 )
               ],
             ),
           )
         ],
       ),
+      )
+    );
+  }
+}
+
+class Counter extends StatelessWidget {
+  final int number;
+  final Color color;
+  final String title;
+
+  const Counter({
+    Key key,
+    this.number,
+    this.color,
+    this.title,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: <Widget>[
+        Container(
+          padding: EdgeInsets.all(6.0),
+          height: 25.0,
+          width: 25.0,
+          decoration: BoxDecoration(
+              shape: BoxShape.circle, color: color.withOpacity(0.26)),
+          child: Container(
+            decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: Colors.transparent,
+                border: Border.all(color: color, width: 2.0)),
+          ),
+        ),
+        SizedBox(
+          height: 10.0,
+        ),
+        Text(
+          "$number",
+          style: TextStyle(fontSize: 40.0, color: color),
+        ),
+        Text(
+          title,
+          style: kSubTextStyle,
+        )
+      ],
     );
   }
 }
