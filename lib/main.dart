@@ -1,8 +1,11 @@
+import 'dart:convert';
+
+import 'package:corona_check/DataLayer%20/Data.dart';
 import 'package:corona_check/constant.dart';
-import 'package:corona_check/widgets/Button.dart';
 import 'package:corona_check/widgets/InputField.dart';
 import 'package:corona_check/widgets/counter.dart';
 import 'package:corona_check/widgets/myHeader.dart';
+import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -22,14 +25,47 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
+  @override
+  _HomeScreenState createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  Future<http.Response> makeRequest() async {
+    var url =
+        "https://covid-19-data.p.rapidapi.com/country?format=json&name=${Info.country.text}";
+
+    final api1Call = await http.get(url, headers: {
+      "x-rapidapi-host": "covid-19-data.p.rapidapi.com",
+      "x-rapidapi-key": "747dce4abemsh2f1e25b9fc74b4fp10835cjsn4d37437caddf"
+    });
+    final response1 = jsonDecode(api1Call.body);
+    Info.confirmed = response1[0]["confirmed"];
+    Info.deaths = response1[0]["deaths"];
+    Info.recovered = response1[0]["recovered"];
+
+    print(Info.confirmed);
+    print(Info.deaths);
+    print(Info.recovered);
+
+    setState(() {
+      Info.deaths = response1[0]["deaths"];
+      Info.recovered = response1[0]["recovered"];
+      Info.confirmed = response1[0]["confirmed"];
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Column(
+        body: SingleChildScrollView(
+      child: Column(
         children: <Widget>[
-          MyHeader(image: "assets/icons/Drcorona.svg" , textTop: "All you need" , textBottom: "is stay at home....",),
+          MyHeader(
+            image: "assets/icons/Drcorona.svg",
+            textTop: "All you need",
+            textBottom: "is stay at home....",
+          ),
           Container(
             margin: EdgeInsets.symmetric(horizontal: 20.0),
             padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
@@ -48,7 +84,15 @@ class HomeScreen extends StatelessWidget {
                 Expanded(
                   child: inputField(),
                 ),
-                buttons(),
+                RaisedButton(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: new BorderRadius.circular(18.0),
+                  ),
+                  child: Text('Get Data'),
+                  onPressed: () {
+                    makeRequest();
+                  },
+                ),
               ],
             ),
           ),
@@ -66,18 +110,9 @@ class HomeScreen extends StatelessWidget {
                         children: [
                           TextSpan(
                               text: "Case Update\n", style: kTitleTextstyle),
-                          TextSpan(
-                              text: "Latest Update of April 18",
-                              style: TextStyle(color: kTextLightColor))
                         ],
                       ),
                     ),
-                    Spacer(),
-                    Text(
-                      "See Details",
-                      style: TextStyle(
-                          color: kPrimaryColor, fontWeight: FontWeight.w600),
-                    )
                   ],
                 ),
                 SizedBox(
@@ -94,49 +129,67 @@ class HomeScreen extends StatelessWidget {
                             blurRadius: 30.0,
                             color: kShadowColor)
                       ]),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  child: Column(
                     children: <Widget>[
-                      Counter(
-                        color: kInfectedColor,
-                        number: 1046,
-                        title: "Infected",
-                      ),
-                      Counter(
-                        color: kDeathColor,
-                        number: 50,
-                        title: "Deaths",
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          Counter(
+                            color: kInfectedColor,
+                            number: Info.confirmed,
+                            title: "Infected",
+                          ),
+                          Counter(
+                            color: kDeathColor,
+                            number: Info.deaths,
+                            title: "Deaths",
+                          ),
+                        ],
                       ),
                       Counter(
                         color: kRecovercolor,
-                        number: 10,
+                        number: Info.recovered,
                         title: "Recovered",
                       )
                     ],
                   ),
                 ),
-                SizedBox(height: 20.0,),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Text("Spread of Virus" , style: kTitleTextstyle,),
-                    Text("See Details" , style: TextStyle(color: kPrimaryColor , fontWeight: FontWeight.w600),)
-                  ],
-                ),
-                Container(
-                  margin: EdgeInsets.only(top: 10.0),
-                  padding: EdgeInsets.all(20.0),
-                  height: 178,
-                  width: double.infinity,
-                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(20.0) , color: Colors.white , boxShadow: [BoxShadow(offset: Offset(0 , 10 ) , blurRadius: 30.0 , color: kShadowColor)]),
-                  child: Image.asset("assets/images/map.png" , fit: BoxFit.contain,),
-                )
               ],
+            ),
+          ),
+          SizedBox(
+            height: 20.0,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              Text(
+                "Spread of Virus",
+                style: kTitleTextstyle,
+              ),
+            ],
+          ),
+          Container(
+            margin: EdgeInsets.only(top: 10.0),
+            padding: EdgeInsets.all(20.0),
+            height: 178,
+            width: double.infinity,
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20.0),
+                color: Colors.white,
+                boxShadow: [
+                  BoxShadow(
+                      offset: Offset(0, 10),
+                      blurRadius: 30.0,
+                      color: kShadowColor)
+                ]),
+            child: Image.asset(
+              "assets/images/map.png",
+              fit: BoxFit.contain,
             ),
           )
         ],
       ),
-      )
-    );
+    ));
   }
 }
