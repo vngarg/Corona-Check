@@ -1,4 +1,6 @@
 import 'package:corona_check/constant.dart';
+import 'package:corona_check/widgets/Button.dart';
+import 'package:corona_check/widgets/InputField.dart';
 import 'package:corona_check/widgets/counter.dart';
 import 'package:corona_check/widgets/myHeader.dart';
 import 'package:flutter/material.dart';
@@ -44,21 +46,9 @@ class HomeScreen extends StatelessWidget {
                   width: 20.0,
                 ),
                 Expanded(
-                  child: DropdownButton(
-                    isExpanded: true,
-                    underline: SizedBox(),
-                    icon: SvgPicture.asset("assets/icons/dropdown.svg"),
-                    value: 'Indonesia',
-                    items: ['Indonesia', 'Bangladesh', 'United States', 'Japan']
-                        .map<DropdownMenuItem<String>>((String value) {
-                      return DropdownMenuItem<String>(
-                        child: Text(value),
-                        value: value,
-                      );
-                    }).toList(),
-                    onChanged: (value) {},
-                  ),
-                )
+                  child: inputField(),
+                ),
+                buttons(),
               ],
             ),
           ),
