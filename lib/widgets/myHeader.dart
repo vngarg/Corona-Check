@@ -5,13 +5,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class MyHeader extends StatelessWidget {
-  final String image, textTop, textBottom;
+  final String image, textTop, textBottom , leftIcon , rightIcon;
 
   const MyHeader({
     Key key,
     this.image,
     this.textTop,
-    this.textBottom,
+    this.textBottom, this.leftIcon, this.rightIcon,
   }) : super(key: key);
 
   @override
@@ -32,7 +32,19 @@ class MyHeader extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Align(
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Align(
+                alignment: Alignment.topLeft,
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.push(context , MaterialPageRoute(builder: (context) {
+                      return InfoScreen();
+                    }) );
+                  },
+                  child: SvgPicture.asset(leftIcon))),
+                  Align(
                 alignment: Alignment.topRight,
                 child: GestureDetector(
                   onTap: () {
@@ -40,7 +52,9 @@ class MyHeader extends StatelessWidget {
                       return InfoScreen();
                     }) );
                   },
-                  child: SvgPicture.asset("assets/icons/menu.svg"))),
+                  child: SvgPicture.asset(rightIcon))),
+              ],
+            ),
             SizedBox(height: 20.0),
             Expanded(
               child: Stack(

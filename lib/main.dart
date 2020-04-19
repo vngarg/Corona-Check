@@ -62,6 +62,8 @@ class _HomeScreenState extends State<HomeScreen> {
       child: Column(
         children: <Widget>[
           MyHeader(
+            leftIcon: "assets/icons/local.svg",
+            rightIcon: "assets/icons/global.svg",
             image: "assets/icons/Drcorona.svg",
             textTop: "All you need",
             textBottom: "is stay at home....",
