@@ -1,17 +1,21 @@
+import 'package:corona_check/Screens/globalCheck.dart';
+import 'package:corona_check/Screens/infoScreen.dart';
 import 'package:corona_check/constant.dart';
-import 'package:corona_check/infoScreen.dart';
+import 'package:corona_check/main.dart';
 import 'package:corona_check/widgets/counter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class MyHeader extends StatelessWidget {
-  final String image, textTop, textBottom , leftIcon , rightIcon;
+  final String image, textTop, textBottom, leftIcon, rightIcon;
 
   const MyHeader({
     Key key,
     this.image,
     this.textTop,
-    this.textBottom, this.leftIcon, this.rightIcon,
+    this.textBottom,
+    this.leftIcon,
+    this.rightIcon,
   }) : super(key: key);
 
   @override
@@ -36,23 +40,39 @@ class MyHeader extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Align(
-                alignment: Alignment.topLeft,
-                child: GestureDetector(
-                  onTap: () {
-                    Navigator.push(context , MaterialPageRoute(builder: (context) {
-                      return InfoScreen();
-                    }) );
-                  },
-                  child: SvgPicture.asset(leftIcon))),
-                  Align(
-                alignment: Alignment.topRight,
-                child: GestureDetector(
-                  onTap: () {
-                    Navigator.push(context , MaterialPageRoute(builder: (context) {
-                      return InfoScreen();
-                    }) );
-                  },
-                  child: SvgPicture.asset(rightIcon))),
+                    alignment: Alignment.topLeft,
+                    child: GestureDetector(
+                        onTap: () {
+                          if (leftIcon == "assets/icons/local.svg") {
+                            Navigator.push(context,
+                                MaterialPageRoute(builder: (context) {
+                              return HomeScreen();
+                            }));
+                          } else if (leftIcon == "assets/icons/symptoms.svg") {
+                            Navigator.push(context,
+                                MaterialPageRoute(builder: (context) {
+                              return InfoScreen();
+                            }));
+                          }
+                        },
+                        child: SvgPicture.asset(leftIcon))),
+                Align(
+                    alignment: Alignment.topRight,
+                    child: GestureDetector(
+                        onTap: () {
+                          if (rightIcon == "assets/icons/global.svg") {
+                            Navigator.push(context,
+                                MaterialPageRoute(builder: (context) {
+                              return CheckGlobal();
+                            }));
+                          } else if (rightIcon == "assets/icons/symptoms.svg") {
+                            Navigator.push(context,
+                                MaterialPageRoute(builder: (context) {
+                              return InfoScreen();
+                            }));
+                          }
+                        },
+                        child: SvgPicture.asset(rightIcon))),
               ],
             ),
             SizedBox(height: 20.0),
