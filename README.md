@@ -2,10 +2,9 @@
 - Now easily check the corona updates on this app ....
 
 ## More Updates.... COMING SOON
-- [ ] Updated Menu
+- [x] Updated Menu
 - [x] Get Country Details
 - [ ] Top 10 infected countries
-- [ ] Latest News on Covid 19
 - [x] Symptoms and Precautions
 
 ## Download APK
