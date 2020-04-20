@@ -134,6 +134,13 @@ class _HomeScreenState extends State<HomeScreen> {
                       ]),
                   child: Column(
                     children: <Widget>[
+                      RichText(
+                      text: TextSpan(
+                        children: [
+                          TextSpan(text: "${Info.country}\n", style: kTitleTextstyle),
+                        ],
+                      ),
+                    ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
