@@ -3,12 +3,15 @@ import 'package:flutter/material.dart';
 
 Widget inputField() {
 
-  Info.country = TextEditingController();
+  // Info.country = TextEditingController();
 
   return Container(
     padding: EdgeInsets.only(left: 20.0, right: 20.0, top: 10.0),
     child: TextFormField(
-      controller: Info.country,
+      onChanged: (text) {
+        Info.country = text;
+  },
+      // controller: Info.country,
       decoration: InputDecoration(
         hintText: 'Enter Country',
       ),
