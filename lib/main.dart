@@ -31,9 +31,10 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+
   Future<http.Response> makeRequest() async {
     var url =
-        "https://covid-19-data.p.rapidapi.com/country?format=json&name=${Info.country.text}";
+        "https://covid-19-data.p.rapidapi.com/country?format=json&name=${Info.country}";
 
     final api1Call = await http.get(url, headers: {
       "x-rapidapi-host": "covid-19-data.p.rapidapi.com",
@@ -44,9 +45,9 @@ class _HomeScreenState extends State<HomeScreen> {
     Info.deaths = response1[0]["deaths"];
     Info.recovered = response1[0]["recovered"];
 
-    print(Info.confirmed);
-    print(Info.deaths);
-    print(Info.recovered);
+    // print(Info.confirmed);
+    // print(Info.deaths);
+    // print(Info.recovered);
 
     setState(() {
       Info.deaths = response1[0]["deaths"];
