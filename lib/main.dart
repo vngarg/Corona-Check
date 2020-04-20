@@ -31,7 +31,10 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+
   Future<http.Response> makeRequest() async {
+    print(Info.country.text);
+
     var url =
         "https://covid-19-data.p.rapidapi.com/country?format=json&name=${Info.country.text}";
 
@@ -57,6 +60,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+
+    print("ENTERED................");
+
     return Scaffold(
         body: SingleChildScrollView(
       child: Column(
@@ -92,6 +98,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   child: Text('Get Data'),
                   onPressed: () {
+                    print(Info.country.text);
                     makeRequest();
                   },
                 ),

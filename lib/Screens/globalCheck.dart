@@ -1,13 +1,10 @@
 import 'dart:convert';
 
-import 'package:corona_check/DataLayer%20/Data.dart';
 import 'package:corona_check/constant.dart';
-import 'package:corona_check/widgets/InputField.dart';
 import 'package:corona_check/widgets/counter.dart';
 import 'package:corona_check/widgets/myHeader.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 
 void main() => runApp(MyApp());
 
@@ -106,10 +103,12 @@ class _CheckGlobalState extends State<CheckGlobal> {
       "x-rapidapi-key": "747dce4abemsh2f1e25b9fc74b4fp10835cjsn4d37437caddf"
     });
     final response1 = jsonDecode(api1Call.body);
-
+    
+    setState(() {
     total = response1[0]["confirmed"];
     deaths = response1[0]["deaths"];
     recovered = response1[0]["recovered"];
+    });
 
     print(country);
     print(total);

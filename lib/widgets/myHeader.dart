@@ -44,11 +44,13 @@ class MyHeader extends StatelessWidget {
                     child: GestureDetector(
                         onTap: () {
                           if (leftIcon == "assets/icons/local.svg") {
+                            Navigator.pop(context);
                             Navigator.push(context,
                                 MaterialPageRoute(builder: (context) {
                               return HomeScreen();
                             }));
                           } else {
+                            Navigator.pop(context);
                             Navigator.push(context,
                                 MaterialPageRoute(builder: (context) {
                               return InfoScreen();
@@ -61,11 +63,13 @@ class MyHeader extends StatelessWidget {
                     child: GestureDetector(
                         onTap: () {
                           if (rightIcon == "assets/icons/global.svg") {
+                            Navigator.pop(context);
                             Navigator.push(context,
                                 MaterialPageRoute(builder: (context) {
                               return CheckGlobal();
                             }));
                           } else {
+                            Navigator.pop(context);
                             Navigator.push(context,
                                 MaterialPageRoute(builder: (context) {
                               return InfoScreen();
