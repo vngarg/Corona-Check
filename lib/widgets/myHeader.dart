@@ -48,7 +48,7 @@ class MyHeader extends StatelessWidget {
                                 MaterialPageRoute(builder: (context) {
                               return HomeScreen();
                             }));
-                          } else if (leftIcon == "assets/icons/symptoms.svg") {
+                          } else {
                             Navigator.push(context,
                                 MaterialPageRoute(builder: (context) {
                               return InfoScreen();
@@ -65,7 +65,7 @@ class MyHeader extends StatelessWidget {
                                 MaterialPageRoute(builder: (context) {
                               return CheckGlobal();
                             }));
-                          } else if (rightIcon == "assets/icons/symptoms.svg") {
+                          } else {
                             Navigator.push(context,
                                 MaterialPageRoute(builder: (context) {
                               return InfoScreen();
