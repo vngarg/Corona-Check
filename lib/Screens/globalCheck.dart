@@ -71,19 +71,19 @@ class _CheckGlobalState extends State<CheckGlobal> {
                   children: <Widget>[
                     Counter(
                       color: kInfectedColor,
-                      number: total[index - 1],
+                      number: index==0 ? 0 : total[index - 1],
                       title: "Infected",
                     ),
                     Counter(
                       color: kDeathColor,
-                      number: deaths[index - 1],
+                      number: index==0 ? 0 : deaths[index - 1],
                       title: "Deaths",
                     ),
                   ],
                 ),
                 Counter(
                   color: kRecovercolor,
-                  number: recovered[index - 1],
+                  number: index==0 ? 0 : recovered[index - 1],
                   title: "Recovered",
                 )
               ],
@@ -114,9 +114,9 @@ class _CheckGlobalState extends State<CheckGlobal> {
       ++index;
 
       print(country);
-      print(total);
-      print(deaths);
-      print(recovered);
+      print(total[index-1]);
+      print(deaths[index-1]);
+      print(recovered[index-1]);
       print(index - 1);
     } else {
       return null;
@@ -130,8 +130,6 @@ class _CheckGlobalState extends State<CheckGlobal> {
       child: Column(
         children: <Widget>[
           MyHeader(
-            leftIcon: "assets/icons/local.svg",
-            rightIcon: "assets/icons/symptoms.svg",
             image: "assets/icons/Drcorona.svg",
             textTop: "All you need",
             textBottom: "is stay at home....",

@@ -12,11 +12,10 @@ class InfoScreen extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           MyHeader(
-            leftIcon: "assets/icons/local.svg",
-            rightIcon: "assets/icons/global.svg",
             image: "assets/icons/coronadr.svg",
             textTop: "Get to know",
             textBottom: "About Covid-19",
+            data: 2,
           ),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 20.0),
