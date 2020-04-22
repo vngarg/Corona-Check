@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:corona_check/DataLayer%20/Data.dart';
 import 'package:corona_check/constant.dart';
 import 'package:corona_check/widgets/counter.dart';
 import 'package:corona_check/widgets/myHeader.dart';
@@ -29,8 +28,8 @@ class CheckGlobal extends StatefulWidget {
 }
 
 class _CheckGlobalState extends State<CheckGlobal> {
-  var country, value = 0;
-  var total , deaths , recovered ;
+  var country, index = 0;
+  var total = [], deaths = [], recovered = [];
 
   countries(country) {
     makeRequest(country);
@@ -72,19 +71,19 @@ class _CheckGlobalState extends State<CheckGlobal> {
                   children: <Widget>[
                     Counter(
                       color: kInfectedColor,
-                      number: total,
+                      number: total[index - 1],
                       title: "Infected",
                     ),
                     Counter(
                       color: kDeathColor,
-                      number: deaths,
+                      number: deaths[index - 1],
                       title: "Deaths",
                     ),
                   ],
                 ),
                 Counter(
                   color: kRecovercolor,
-                  number: recovered,
+                  number: recovered[index - 1],
                   title: "Recovered",
                 )
               ],
@@ -96,35 +95,29 @@ class _CheckGlobalState extends State<CheckGlobal> {
   }
 
   Future<http.Response> makeRequest(country) async {
-    if (value < 3) {
-      print("BEFORE URL.............");
+    if (index < 3) {
+      
       var url =
           "https://covid-19-data.p.rapidapi.com/country?format=json&name=$country";
-      print("AFTER URL................ $country");
+      
       final api1Call = await http.get(url, headers: {
         "x-rapidapi-host": "covid-19-data.p.rapidapi.com",
         "x-rapidapi-key": "747dce4abemsh2f1e25b9fc74b4fp10835cjsn4d37437caddf"
       });
       final response1 = jsonDecode(api1Call.body);
-      print("BEFORE SETSTATE................");
-      // setState(() {
-      //   total = response1[0]["confirmed"];
-      //   deaths = response1[0]["deaths"];
-      //   recovered = response1[0]["recovered"];
-      // });
-
-      total = response1[0]["confirmed"];
-        deaths = response1[0]["deaths"];
-        recovered = response1[0]["recovered"];
-
-      print("AFTER SETSTATE.................");
-      ++value;
+      
+      setState(() {
+        total.add(response1[0]["confirmed"]);
+        deaths.add(response1[0]["deaths"]);
+        recovered.add(response1[0]["recovered"]);
+      });
+      ++index;
 
       print(country);
       print(total);
       print(deaths);
       print(recovered);
-      print(value -1);
+      print(index - 1);
     } else {
       return null;
     }
