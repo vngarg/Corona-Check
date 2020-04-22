@@ -7,15 +7,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class MyHeader extends StatelessWidget {
-  final String image, textTop, textBottom, leftIcon, rightIcon;
+  final String image, textTop, textBottom;
+  final int data;
 
   const MyHeader({
     Key key,
     this.image,
+    this.data,
     this.textTop,
     this.textBottom,
-    this.leftIcon,
-    this.rightIcon,
   }) : super(key: key);
 
   @override
@@ -43,40 +43,28 @@ class MyHeader extends StatelessWidget {
                     alignment: Alignment.topLeft,
                     child: GestureDetector(
                         onTap: () {
-                          if (leftIcon == "assets/icons/local.svg") {
-                            Navigator.pop(context);
-                            Navigator.push(context,
-                                MaterialPageRoute(builder: (context) {
-                              return HomeScreen();
-                            }));
-                          } else {
-                            Navigator.pop(context);
-                            Navigator.push(context,
-                                MaterialPageRoute(builder: (context) {
-                              return InfoScreen();
-                            }));
+                          data == 1 ? {
+                            Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) {
+                                return InfoScreen();
+                              },
+                            ),
+                          )
                           }
+                           : {
+                             Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) {
+                                return HomeScreen();
+                              },
+                            ),
+                          )
+                           };
                         },
-                        child: SvgPicture.asset(leftIcon))),
-                Align(
-                    alignment: Alignment.topRight,
-                    child: GestureDetector(
-                        onTap: () {
-                          if (rightIcon == "assets/icons/global.svg") {
-                            Navigator.pop(context);
-                            Navigator.push(context,
-                                MaterialPageRoute(builder: (context) {
-                              return CheckGlobal();
-                            }));
-                          } else {
-                            Navigator.pop(context);
-                            Navigator.push(context,
-                                MaterialPageRoute(builder: (context) {
-                              return InfoScreen();
-                            }));
-                          }
-                        },
-                        child: SvgPicture.asset(rightIcon))),
+                        child: SvgPicture.asset("assets/icons/menu.svg"))),
               ],
             ),
             SizedBox(height: 20.0),

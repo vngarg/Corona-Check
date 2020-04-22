@@ -28,8 +28,8 @@ class CheckGlobal extends StatefulWidget {
 }
 
 class _CheckGlobalState extends State<CheckGlobal> {
-  var country;
-  var total, deaths, recovered;
+  var country, index = 0;
+  var total = [], deaths = [], recovered = [];
 
   countries(country) {
     makeRequest(country);
@@ -71,19 +71,19 @@ class _CheckGlobalState extends State<CheckGlobal> {
                   children: <Widget>[
                     Counter(
                       color: kInfectedColor,
-                      number: total,
+                      number: index==0 ? 0 : total[index - 1],
                       title: "Infected",
                     ),
                     Counter(
                       color: kDeathColor,
-                      number: deaths,
+                      number: index==0 ? 0 : deaths[index - 1],
                       title: "Deaths",
                     ),
                   ],
                 ),
                 Counter(
                   color: kRecovercolor,
-                  number: recovered,
+                  number: index==0 ? 0 : recovered[index - 1],
                   title: "Recovered",
                 )
               ],
@@ -95,25 +95,32 @@ class _CheckGlobalState extends State<CheckGlobal> {
   }
 
   Future<http.Response> makeRequest(country) async {
-    var url =
-        "https://covid-19-data.p.rapidapi.com/country?format=json&name=$country";
+    if (index < 3) {
+      
+      var url =
+          "https://covid-19-data.p.rapidapi.com/country?format=json&name=$country";
+      
+      final api1Call = await http.get(url, headers: {
+        "x-rapidapi-host": "covid-19-data.p.rapidapi.com",
+        "x-rapidapi-key": "747dce4abemsh2f1e25b9fc74b4fp10835cjsn4d37437caddf"
+      });
+      final response1 = jsonDecode(api1Call.body);
+      
+      setState(() {
+        total.add(response1[0]["confirmed"]);
+        deaths.add(response1[0]["deaths"]);
+        recovered.add(response1[0]["recovered"]);
+      });
+      ++index;
 
-    final api1Call = await http.get(url, headers: {
-      "x-rapidapi-host": "covid-19-data.p.rapidapi.com",
-      "x-rapidapi-key": "747dce4abemsh2f1e25b9fc74b4fp10835cjsn4d37437caddf"
-    });
-    final response1 = jsonDecode(api1Call.body);
-    
-    setState(() {
-    total = response1[0]["confirmed"];
-    deaths = response1[0]["deaths"];
-    recovered = response1[0]["recovered"];
-    });
-
-    print(country);
-    print(total);
-    print(deaths);
-    print(recovered);
+      print(country);
+      print(total[index-1]);
+      print(deaths[index-1]);
+      print(recovered[index-1]);
+      print(index - 1);
+    } else {
+      return null;
+    }
   }
 
   @override
@@ -123,8 +130,6 @@ class _CheckGlobalState extends State<CheckGlobal> {
       child: Column(
         children: <Widget>[
           MyHeader(
-            leftIcon: "assets/icons/local.svg",
-            rightIcon: "assets/icons/symptoms.svg",
             image: "assets/icons/Drcorona.svg",
             textTop: "All you need",
             textBottom: "is stay at home....",

@@ -63,11 +63,10 @@ class _HomeScreenState extends State<HomeScreen> {
       child: Column(
         children: <Widget>[
           MyHeader(
-            leftIcon: "assets/icons/symptoms.svg",
-            rightIcon: "assets/icons/global.svg",
             image: "assets/icons/Drcorona.svg",
             textTop: "All you need",
             textBottom: "is stay at home....",
+            data: 1,
           ),
           Container(
             margin: EdgeInsets.symmetric(horizontal: 20.0),
@@ -134,6 +133,13 @@ class _HomeScreenState extends State<HomeScreen> {
                       ]),
                   child: Column(
                     children: <Widget>[
+                      RichText(
+                      text: TextSpan(
+                        children: [
+                          TextSpan(text: "${Info.country}\n", style: kTitleTextstyle),
+                        ],
+                      ),
+                    ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
