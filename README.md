@@ -4,7 +4,6 @@
 ## More Updates.... COMING SOON
 - [x] Updated Menu
 - [x] Get Country Details
-- [ ] Top 10 infected countries
 - [x] Symptoms and Precautions
 
 ## Download APK
